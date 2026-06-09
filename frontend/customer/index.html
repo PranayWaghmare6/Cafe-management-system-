@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Cafe Ordering Dashboard</title>
+<link rel="stylesheet" href="style.css" />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+<!-- HEADER -->
+<header class="header">
+  <div class="header-inner">
+    <div class="brand">
+      <div class="logo">☕</div>
+      <div>
+        <h1>Brewhouse Cafe</h1>
+        <p class="table-label"> <span id="tableNumber">-</span></p>
+      </div>
+    </div>
+    <button class="cart-btn" id="cartBtn" aria-label="Open cart">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
+        <path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/>
+      </svg>
+      <span class="cart-count" id="cartCount">0</span>
+    </button>
+  </div>
+</header>
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <h2>Delicious food, delivered to your table</h2>
+    <p>Browse our menu and order in seconds — no waiting, no queues.</p>
+  </div>
+</section>
+<!-- SEARCH + CATEGORIES -->
+<section class="controls">
+  <div class="search-wrap">
+    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+    </svg>
+    <input id="searchInput" type="text" placeholder="Search menu..." />
+  </div>
+  <div class="categories" id="categories"></div>
+</section>
+<!-- MENU GRID -->
+<main class="menu-grid" id="menuGrid"></main>
+<!-- CART DRAWER -->
+<div class="overlay" id="overlay"></div>
+<aside class="cart-drawer" id="cartDrawer">
+  <div class="cart-header">
+    <h3>Your Order</h3>
+    <button class="close-btn" id="closeCart">✕</button>
+  </div>
+  <div class="cart-items" id="cartItems"></div>
+  <div class="cart-footer" id="cartFooter">
+    <div class="totals">
+      <div class="row"><span>Subtotal</span><span id="subtotal">₹0</span></div>
+      <div class="row"><span>GST (5%)</span><span id="gst">₹0</span></div>
+      <div class="row total"><span>Total</span><span id="grandTotal">₹0</span></div>
+    </div>
+    <div class="cart-actions">
+      <button class="btn-secondary" id="clearCart">Clear</button>
+      <button class="btn-primary" id="checkoutBtn">Checkout</button>
+    </div>
+  </div>
+</aside>
+<!-- CHECKOUT MODAL -->
+<div class="modal" id="checkoutModal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3>Confirm Your Order</h3>
+      <button class="close-btn" id="closeCheckout">✕</button>
+    </div>
+    <div class="modal-body">
+      <p class="checkout-table">Table: <strong id="checkoutTable">-</strong></p>
+      <div id="checkoutItems" class="checkout-items"></div>
+      <div class="checkout-total">
+        <span>Total Amount</span>
+        <strong id="checkoutTotal">₹0</strong>
+      </div>
+      <button class="btn-primary full" id="payBtn">Proceed To Payment</button>
+    </div>
+  </div>
+</div>
+<!-- SUCCESS MODAL -->
+<div class="modal" id="successModal">
+  <div class="modal-content success">
+    <div class="success-icon">✓</div>
+    <h2>Order Successful!</h2>
+    <p class="success-sub">Your delicious meal is on the way.</p>
+    <div class="success-details">
+      <div><span>Order ID</span><strong id="orderId">-</strong></div>
+      <div><span>Table</span><strong id="successTable">-</strong></div>
+      <div><span>Amount Paid</span><strong id="successAmount">-</strong></div>
+    </div>
+    <button class="btn-primary full" id="newOrderBtn">Place New Order</button>
+  </div>
+</div>
+<button id="floatingCartBtn" class="floating-cart-btn">
+  View Cart (<span id="floatingCartCount">0</span>)
+</button>
+<script src="script.js"></script>
+</body>
+</html>

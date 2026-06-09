@@ -1,0 +1,32 @@
+project/
+│
+├── frontend/
+│   ├── customer/
+│   │   ├── index.html
+│   │   ├── style.css
+│   │   └── script.js
+│   │
+│   ├── kitchen/
+│   │   ├── index.html
+│   │   ├── style.css
+│   │   └── script.js
+│   │
+│   └── admin/
+│       ├── index.html
+│       ├── style.css
+│       └── script.js
+│
+├── backend/
+│   ├── server.js
+│   ├── routes/
+│   │   ├── orders.js
+│   │   ├── menu.js
+│   │   ├── tables.js
+│   │   └── analytics.js
+│   │
+│   ├── controllers/
+│   ├── middleware/
+│   └── config/
+│
+└── database/
+    └── schema.sql

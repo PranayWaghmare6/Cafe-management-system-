@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Kitchen Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-top">
+      <div class="header-left">
+        <div class="logo">👨‍🍳</div>
+        <div class="brand-text">
+          <h1>Kitchen Dashboard</h1>
+          <p class="brand-sub">Vendor Order Management</p>
+        </div>
+      </div>
+      <div class="clock-block">
+        <div id="clockTime" class="clock-time">--:--:--</div>
+        <div id="clockDate" class="clock-date">-- --- ----</div>
+      </div>
+    </div>
+
+    <!-- STATS -->
+    <div class="stats-bar">
+      <div class="stat pending-stat">
+        <div class="stat-icon">🍳</div>
+        <div>
+          <div class="stat-label">Pending</div>
+          <div class="stat-val" id="pendingCount">0</div>
+        </div>
+      </div>
+      <div class="stat completed-stat">
+        <div class="stat-icon">✅</div>
+        <div>
+          <div class="stat-label">Completed</div>
+          <div class="stat-val" id="completedCount">0</div>
+        </div>
+      </div>
+      <div class="stat total-stat">
+        <div class="stat-icon">📊</div>
+        <div>
+          <div class="stat-label">Total</div>
+          <div class="stat-val" id="totalCount">0</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- CONTROLS -->
+  <div class="controls">
+    <div class="search-wrap">
+      <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+      </svg>
+      <input id="searchInput" type="text" placeholder="Search by Order ID or Table #" autocomplete="off" />
+    </div>
+
+  </div>
+
+  <!-- SECTION TOGGLE TABS -->
+  <div class="section-toggle">
+    <button class="toggle-tab active" data-tab="pending">
+      <span class="tab-icon">🍳</span>
+      <span class="tab-label">Pending Orders</span>
+      <span class="tab-badge" id="pendingSectionCount">0</span>
+    </button>
+    <button class="toggle-tab" data-tab="completed">
+      <span class="tab-icon">✅</span>
+      <span class="tab-label">Completed Orders</span>
+      <span class="tab-badge completed" id="completedSectionCount">0</span>
+    </button>
+  </div>
+
+  <!-- PANELS -->
+  <main class="main-content">
+    <section class="panel" id="panelPending">
+      <div class="orders-grid" id="pendingOrders"></div>
+    </section>
+    <section class="panel hidden" id="panelCompleted">
+      <div class="orders-grid" id="completedOrders"></div>
+    </section>
+  </main>
+
+<script src="script.js"></script>
+</body>
+</html>
