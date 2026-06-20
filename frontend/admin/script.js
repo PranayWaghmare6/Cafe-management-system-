@@ -1,4 +1,17 @@
 /* ====== CLOCK ====== */
+const user = JSON.parse(
+    localStorage.getItem("user")
+);
+
+if (!user) {
+    window.location.href = "/frontend/login/index.html";
+}
+
+if (user.role !== "admin") {
+    alert("Access Denied");
+    window.location.href = "index.html";
+}
+
 function updateClock() {
     const now = new Date();
     document.getElementById('clockTime').textContent = now.toLocaleTimeString('en-IN', { hour12: false });
@@ -28,7 +41,7 @@ let ORDERS = [];
 async function loadOrders() {
     try {
         const res = await fetch(
-            "http://localhost:5000/api/orders"
+            "https://cafe-management-system-1-uc3b.onrender.com/api/orders"
         );
 
         const data = await res.json();
@@ -68,7 +81,7 @@ let MENU = [];
 async function loadMenu() {
     try {
         const res = await fetch(
-            "http://localhost:5000/api/menu"
+            "https://cafe-management-system-1-uc3b.onrender.com/api/menu"
         );
 
         MENU = await res.json();
@@ -334,7 +347,7 @@ $('saveBtn').addEventListener('click', async () => {
     try {
 
         const res = await fetch(
-            "http://localhost:5000/api/menu",
+            "https://cafe-management-system-1-uc3b.onrender.com/api/menu",
             {
                 method: "POST",
                 headers: {
@@ -367,7 +380,7 @@ $('updateBtn').addEventListener('click', async () => {
     try {
 
         const res = await fetch(
-            `http://localhost:5000/api/menu/${editingId}`,
+            `https://cafe-management-system-1-uc3b.onrender.com/api/menu/${editingId}`,
             {
                 method: "PUT",
                 headers: {
@@ -406,7 +419,7 @@ $('deleteBtn').addEventListener('click', async () => {
     try {
 
         await fetch(
-            `http://localhost:5000/api/menu/${editingId}`,
+            `https://cafe-management-system-1-uc3b.onrender.com/api/menu/${editingId}`,
             {
                 method: "DELETE"
             }

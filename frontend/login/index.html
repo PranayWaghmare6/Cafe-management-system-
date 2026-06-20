@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title> Login — Cafe Management</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Poppins', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #ff6b35, #ff8c5a);
+    padding: 20px;
+  }
+  .card {
+    background: #fff;
+    width: 100%;
+    max-width: 400px;
+    padding: 36px 28px;
+    border-radius: 18px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+    animation: pop 0.4s ease;
+  }
+  @keyframes pop { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+  .logo {
+    width: 64px; height: 64px;
+    margin: 0 auto 16px;
+    background: linear-gradient(135deg, #ff6b35, #ff8c5a);
+    border-radius: 16px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 32px;
+    box-shadow: 0 8px 20px rgba(255,107,53,0.35);
+  }
+  h1 { text-align: center; font-size: 24px; font-weight: 700; color: #1f2937; }
+  .subtitle { text-align: center; color: #6b7280; font-size: 13px; margin-bottom: 26px; }
+  .field { margin-bottom: 16px; }
+  label { display: block; font-size: 12px; font-weight: 600; color: #374151; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
+  input {
+    width: 100%;
+    padding: 12px 14px;
+    border: 2px solid #e5e7eb;
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 14px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  input:focus {
+    outline: none;
+    border-color: #ff6b35;
+    box-shadow: 0 0 0 4px rgba(255,107,53,0.12);
+  }
+  button {
+    width: 100%;
+    margin-top: 10px;
+    padding: 13px;
+    background: linear-gradient(135deg, #ff6b35, #ff8c5a);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.15s;
+    box-shadow: 0 6px 18px rgba(255,107,53,0.35);
+  }
+  button:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(255,107,53,0.45); }
+  button:active { transform: scale(0.98); }
+  .err { color: #dc2626; font-size: 12px; margin-top: 10px; text-align: center; min-height: 16px; font-weight: 500; }
+</style>
+</head>
+<body>
+  <form class="card" id="loginForm">
+    <div class="logo">☕</div>
+    <h1> Login</h1>
+    <p class="subtitle">Brew &amp; Bites Cafe</p>
+    <div class="field">
+      <label for="email">Email</label>
+      <input type="email" id="email" placeholder="admin@cafe.com" required />
+    </div>
+    <div class="field">
+      <label for="password">Password</label>
+      <input type="password" id="password" placeholder="••••••••" required />
+    </div>
+    <button type="submit">Sign In</button>
+    <div class="err" id="err"></div>
+  </form>
+<!-- <script>
+  document.getElementById('loginForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    const email = document.getElementById('email').value.trim();
+    const pass = document.getElementById('password').value;
+    if (!email || !pass) { document.getElementById('err').textContent = 'Please fill all fields.'; return; }
+    document.getElementById("loginForm")
+.addEventListener("submit", async (e) => {
+
+    e.preventDefault();
+
+    const email =
+        document.getElementById("email").value;
+
+    const password =
+        document.getElementById("password").value;
+
+    const res = await fetch(
+        "http://localhost:5000/api/auth/login",
+        {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                email,
+                password
+            })
+        }
+    );
+
+    const data = await res.json();
+
+    if (!data.success) {
+        document.getElementById("err")
+            .textContent = "Invalid Login";
+        return;
+    }
+
+    localStorage.setItem(
+        "user",
+        JSON.stringify(data.user)
+    );
+
+    if (data.user.role === "admin") {
+        window.location.href = "admin.html";
+    } else {
+        window.location.href = "kitchen.html";
+    }
+});
+  });
+</script> -->
+<script>
+document.getElementById("loginForm")
+.addEventListener("submit", async (e) => {
+
+    e.preventDefault();
+
+    const email =
+        document.getElementById("email").value.trim();
+
+    const password =
+        document.getElementById("password").value;
+
+    const err =
+        document.getElementById("err");
+
+    err.textContent = "";
+
+    try {
+
+        const res = await fetch(
+            "https://cafe-management-system-1-uc3b.onrender.com/api/auth/login",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    email,
+                    password
+                })
+            }
+        );
+
+        const data = await res.json();
+
+        if (!data.success) {
+            err.textContent = "Invalid Login";
+            return;
+        }
+
+        localStorage.setItem(
+            "user",
+            JSON.stringify(data.user)
+        );
+
+        if (data.user.role === "admin") {
+            window.location.href = "/frontend/admin/index.html";
+        } else {
+            window.location.href = "/frontend/kitchen/index.html";
+        }
+
+    } catch (error) {
+        console.error(error);
+        err.textContent = "Server Error";
+    }
+
+});
+</script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+</body>
+</html>

@@ -1,6 +1,24 @@
 /* ═══════════════════════════════════════════
    KITCHEN OPS — script.js
    ═══════════════════════════════════════════ */
+const user = JSON.parse(
+    localStorage.getItem("user")
+);
+
+if (!user) {
+    window.location.href = "/frontend/login/index.html";
+}
+
+if (
+    user.role !== "admin" &&
+    user.role !== "kitchen"
+) {
+    alert("Access Denied");
+    window.location.href = "index.html";
+}
+
+
+
 
 "use strict";
 
@@ -12,7 +30,7 @@ async function fetchOrders() {
   try {
     console.log("Fetching orders...");
 
-    const res = await fetch("http://localhost:5000/api/orders");
+    const res = await fetch("https://cafe-management-system-1-uc3b.onrender.com/api/orders");
     const data = await res.json();
 
     console.log("Orders received:", data.orders);
@@ -192,7 +210,7 @@ async function markOrderReady(id) {
     try {
 
         await fetch(
-            `http://localhost:5000/api/orders/${id}/complete`,
+            `https://cafe-management-system-1-uc3b.onrender.com/api/orders/${id}/complete`,
             {
                 method: "PUT"
             }
