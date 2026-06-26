@@ -1,5 +1,5 @@
 // routes/auth.js
-
+const jwt = require("jsonwebtoken");
 const express = require("express");
 const router = express.Router();
 const supabase = require("../config/supabase");
@@ -22,8 +22,21 @@ router.post("/login", async (req, res) => {
         });
     }
 
+    const token = jwt.sign(
+        {
+            id: data.id,
+            email: data.email,
+            role: data.role
+        },
+        process.env.JWT_SECRET,
+        {
+            expiresIn: "7d"
+        }
+    );
+
     res.json({
         success: true,
+        token,
         user: {
             email: data.email,
             role: data.role

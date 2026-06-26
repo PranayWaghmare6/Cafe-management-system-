@@ -3,13 +3,19 @@ const user = JSON.parse(
     localStorage.getItem("user")
 );
 
-if (!user) {
-    window.location.href = "/frontend/login/index.html";
-}
+const token =
+    localStorage.getItem("token");
 
+if (!user || !token) {
+    window.location.href =
+        "/frontend/login/index.html";
+}
 if (user.role !== "admin") {
+
     alert("Access Denied");
-    window.location.href = "index.html";
+
+    window.location.href =
+        "/frontend/login/index.html";
 }
 
 function updateClock() {
@@ -47,13 +53,13 @@ async function loadOrders() {
         const data = await res.json();
 
         ORDERS = data.orders.map(order => ({
-    id: order.orderId,
-    table: order.tableNumber,
-    time: new Date(order.created_at || Date.now()),
-    amount: Number(order.totalAmount),
-    status: order.status,
-    items: order.items || []
-}));
+            id: order.orderId,
+            table: order.tableNumber,
+            time: new Date(order.created_at || Date.now()),
+            amount: Number(order.totalAmount),
+            status: order.status,
+            items: order.items || []
+        }));
         // console.log("ORDERS:", ORDERS);
         // console.log(
         //   "Pending:",
@@ -351,7 +357,8 @@ $('saveBtn').addEventListener('click', async () => {
             {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
                 },
                 body: JSON.stringify(data)
             }
@@ -384,7 +391,8 @@ $('updateBtn').addEventListener('click', async () => {
             {
                 method: "PUT",
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
                 },
                 body: JSON.stringify(data)
             }
@@ -421,7 +429,10 @@ $('deleteBtn').addEventListener('click', async () => {
         await fetch(
             `https://cafe-management-system-1-uc3b.onrender.com/api/menu/${editingId}`,
             {
-                method: "DELETE"
+                method: "DELETE",
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
             }
         );
 

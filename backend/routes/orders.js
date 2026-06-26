@@ -1,3 +1,5 @@
+const kitchenAuth = require("../middleware/kitchenAuth");
+const auth = require("../middleware/auth");
 const express = require("express");
 const router = express.Router();
 const supabase = require("../config/supabase");
