@@ -239,4 +239,3 @@ function formatOrders(data = []) {
 }
 
 module.exports = router;
-
