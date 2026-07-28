@@ -8,14 +8,14 @@ const token =
 
 if (!user || !token) {
     window.location.href =
-        "/frontend/login/index.html";
+        "/login";
 }
 if (user.role !== "admin") {
 
     alert("Access Denied");
 
     window.location.href =
-        "/frontend/login/index.html";
+        "/login";
 }
 
 function updateClock() {

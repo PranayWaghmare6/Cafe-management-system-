@@ -4,18 +4,18 @@
 const token = localStorage.getItem("token");
 
 if (!token) {
-  window.location.href = "/frontend/login/index.html";
+  window.location.href = "/login";
 }
 
 const user = JSON.parse(localStorage.getItem("user"));
 
 if (!user) {
-  window.location.href = "/frontend/login/index.html";
+  window.location.href = "/login";
 }
 
 if (user.role !== "admin" && user.role !== "kitchen") {
   alert("Access Denied");
-  window.location.href = "/frontend/login/index.html";
+  window.location.href = "/login";
 }
 
 ("use strict");
