@@ -99,20 +99,46 @@ router.put("/:id", auth, async (req, res) => {
   }
 });
 
+// router.delete("/:id", auth, async (req, res) => {
+//   try {
+
+//     const { id } = req.params;
+
+//     const { error } = await supabase
+//       .from("food_items")
+//       .delete()
+//       .eq("id", id);
+
+//     if (error) throw error;
+
+//     res.json({
+//       success: true
+//     });
+
+//   } catch (err) {
+//     console.error(err);
+//     res.status(500).json({ error: err.message });
+//   }
+// });
 router.delete("/:id", auth, async (req, res) => {
   try {
-
     const { id } = req.params;
 
-    const { error } = await supabase
+    console.log("Deleting ID:", id);
+
+    const { data, error } = await supabase
       .from("food_items")
       .delete()
-      .eq("id", id);
+      .eq("id", id)
+      .select();
+
+    console.log("Deleted:", data);
 
     if (error) throw error;
 
     res.json({
-      success: true
+      success: true,
+      deleted: data
     });
 
   } catch (err) {

@@ -14,7 +14,7 @@ let menu = [
 ];
 async function loadMenu() {
     try {
-        const response = await fetch("https://cafe-management-system-1-uc3b.onrender.com/api/menu");
+        const response = await fetch("https://cafe-management-system-3-i4ar.onrender.com/api/menu");
 
         const data = await response.json();
 
@@ -30,7 +30,7 @@ async function loadMenu() {
 }
 async function loadTableNumber() {
   const res = await fetch(
-    `https://cafe-management-system-1-uc3b.onrender.com/api/table/${tableCode}`
+    `https://cafe-management-system-3-i4ar.onrender.com/api/table/${tableCode}`
   );
 
   const data = await res.json();
@@ -273,7 +273,7 @@ document.getElementById("payBtn").addEventListener("click", async () => {
     
 
     const response = await fetch(
-        "https://cafe-management-system-1-uc3b.onrender.com/api/orders",
+        "https://cafe-management-system-3-i4ar.onrender.com/api/orders",
         {
             method: "POST",
             headers: {

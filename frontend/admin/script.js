@@ -47,7 +47,12 @@ let ORDERS = [];
 async function loadOrders() {
     try {
         const res = await fetch(
-            "https://cafe-management-system-1-uc3b.onrender.com/api/orders"
+            "https://cafe-management-system-3-i4ar.onrender.com/api/orders",
+            {
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
+            }
         );
 
         const data = await res.json();
@@ -87,7 +92,7 @@ let MENU = [];
 async function loadMenu() {
     try {
         const res = await fetch(
-            "https://cafe-management-system-1-uc3b.onrender.com/api/menu"
+            "https://cafe-management-system-3-i4ar.onrender.com/api/menu"
         );
 
         MENU = await res.json();
@@ -335,7 +340,7 @@ function readForm() {
     return {
         name: $('fName').value.trim(),
         category: $('fCategory').value,
-        desc: $('fDesc').value.trim(),
+        description: $('fDesc').value.trim(),
         price: +$('fPrice').value || 0,
         available: $('fAvail').checked,
         image: $('imgPreview').dataset.url || DEFAULT_IMG,
@@ -344,6 +349,7 @@ function readForm() {
 $('saveBtn').addEventListener('click', async () => {
 
     const data = readForm();
+    // console.log(JSON.stringify(data));
 
     if (!data.name || !data.category || !data.price) {
         alert('Please fill name, category and price.');
@@ -353,7 +359,7 @@ $('saveBtn').addEventListener('click', async () => {
     try {
 
         const res = await fetch(
-            "https://cafe-management-system-1-uc3b.onrender.com/api/menu",
+            "https://cafe-management-system-3-i4ar.onrender.com/api/menu",
             {
                 method: "POST",
                 headers: {
@@ -385,9 +391,11 @@ $('updateBtn').addEventListener('click', async () => {
     const data = readForm();
 
     try {
+        console.log("Updating ID:", editingId);
+        console.log("Body:", data);
 
         const res = await fetch(
-            `https://cafe-management-system-1-uc3b.onrender.com/api/menu/${editingId}`,
+            `https://cafe-management-system-3-i4ar.onrender.com/api/menu/${editingId}`,
             {
                 method: "PUT",
                 headers: {
@@ -399,7 +407,7 @@ $('updateBtn').addEventListener('click', async () => {
         );
 
         const updated = await res.json();
-
+        console.log(updated);
         const idx = MENU.findIndex(
             m => m.id === editingId
         );
@@ -426,19 +434,26 @@ $('deleteBtn').addEventListener('click', async () => {
 
     try {
 
-        await fetch(
-            `https://cafe-management-system-1-uc3b.onrender.com/api/menu/${editingId}`,
+        const res = await fetch(
+            `https://cafe-management-system-3-i4ar.onrender.com/api/menu/${editingId}`,
             {
                 method: "DELETE",
                 headers: {
-                    "Authorization": `Bearer ${token}`
+                    Authorization: `Bearer ${token}`
                 }
             }
         );
 
-        MENU = MENU.filter(
-            item => item.id !== editingId
-        );
+        console.log("Status:", res.status);
+
+        const data = await res.json();
+        console.log(data);
+
+        if (!res.ok) {
+            throw new Error(data.error || "Delete failed");
+        }
+
+        MENU = MENU.filter(item => item.id !== editingId);
 
         resetForm();
         renderMenuGrid();
@@ -447,7 +462,7 @@ $('deleteBtn').addEventListener('click', async () => {
 
     } catch (err) {
         console.error(err);
-        alert("Delete failed");
+        alert(err.message);
     }
 });
 $('clearBtn').addEventListener('click', resetForm);
@@ -455,7 +470,7 @@ function loadIntoForm(id) {
     const m = MENU.find(x => x.id === id); if (!m) return;
     editingId = id;
     $('fName').value = m.name; $('fCategory').value = m.category;
-    $('fPrice').value = m.price; $('fDesc').value = m.desc;
+    $('fPrice').value = m.price; $('fDesc').value = m.description;
     $('fAvail').checked = m.available;
     $('imgPreview').src = m.image; $('imgPreview').dataset.url = m.image;
     document.querySelector('.img-upload').classList.add('has-image');

@@ -27,7 +27,7 @@ async function fetchOrders() {
     console.log("Fetching orders...");
 
     const res = await fetch(
-      "https://cafe-management-system-1-uc3b.onrender.com/api/orders",
+      "https://cafe-management-system-3-i4ar.onrender.com/api/orders",
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -216,7 +216,7 @@ async function markOrderReady(id) {
 
   try {
     await fetch(
-      `https://cafe-management-system-1-uc3b.onrender.com/api/orders/${id}/complete`,
+      `https://cafe-management-system-3-i4ar.onrender.com/api/orders/${id}/complete`,
       {
         method: "PUT",
         headers: {
